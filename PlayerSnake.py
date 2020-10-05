@@ -30,3 +30,16 @@ class PlayerSnake:
             PlayerSnake.availableFood -= 1
         else:
             PlayerSnake.bodyCoordinates.pop(0)
+    def bitesItSelf():
+        for id, coordinate in enumerate(PlayerSnake.bodyCoordinates):
+            if (
+                (id < len(PlayerSnake.bodyCoordinates) - 1) and
+                (coordinate[0] == PlayerSnake.headX) and
+                (coordinate[1] == PlayerSnake.headY)
+            ):
+                print('noooooo')
+                return True
+        return False
+    def bitesEdge(GameSettings):
+        if not GameSettings.isInArea(PlayerSnake.headX, PlayerSnake.headY):
+            print('nooo')

@@ -8,6 +8,12 @@ class GameSettings:
     squareSideLength = 10
     windowHeight = 1000
     windowWidth = 1000
+    def isInArea(x: int, y: int):
+        xFits = (x >= 0) and (x < GameSettings.windowWidth/GameSettings.squareSideLength)
+        yFits = (y >= 0) and (y < GameSettings.windowWidth/GameSettings.squareSideLength)
+
+        return xFits and yFits
+
 
 def keyPress(event):
     if (event.keysym.lower() in ['right', 'left', 'up', 'down']):
@@ -31,6 +37,8 @@ def render(top, canvas):
 
     x = GameSettings.squareSideLength
     y = GameSettings.squareSideLength
+    PlayerSnake.bitesItSelf()
+    PlayerSnake.bitesEdge(GameSettings)
 
     while (x < GameSettings.windowWidth):
         canvas.create_line(x, 0, x, GameSettings.windowHeight)
