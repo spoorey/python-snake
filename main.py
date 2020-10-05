@@ -10,7 +10,11 @@ class GameSettings:
     windowWidth = 1000
 
 def keyPress(event):
-    PlayerSnake.direction = event.keysym.lower()
+    if (event.keysym.lower() in ['right', 'left', 'up', 'down']):
+        PlayerSnake.direction = event.keysym.lower()
+    
+    if (event.keysym == 'space'):
+        PlayerSnake.availableFood += 1
 
 def fillSquare(canvas, x, y, color):
     canvas.create_rectangle(
@@ -22,7 +26,7 @@ def fillSquare(canvas, x, y, color):
 )
 
 def render(top, canvas):
-    canvas.delete("all")
+    canvas.delete('all')
     top.after(200, render, top, canvas)
 
     x = GameSettings.squareSideLength
@@ -37,12 +41,12 @@ def render(top, canvas):
         y += GameSettings.squareSideLength
 
     for coordinate in PlayerSnake.bodyCoordinates:
-        fillSquare(canvas, coordinate[0], coordinate[1], "#0000ff")
+        fillSquare(canvas, coordinate[0], coordinate[1], '#0000ff')
     PlayerSnake.move()
 
-PlayerSnake.reset()
-canvas = tkinter.Canvas(top, bg="#cccccc", height=GameSettings.windowHeight, width=GameSettings.windowWidth)
+PlayerSnake.reset(10)
+canvas = tkinter.Canvas(top, bg='#cccccc', height=GameSettings.windowHeight, width=GameSettings.windowWidth)
 canvas.pack()
 render(top, canvas)
-top.bind("<Key>", keyPress)
+top.bind('<Key>', keyPress)
 top.mainloop()
