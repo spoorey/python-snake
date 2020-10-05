@@ -3,22 +3,24 @@ import tkinter
 from GameSettings import GameSettings
 from PlayerSnake import PlayerSnake
 
+settings = GameSettings()
+snake = PlayerSnake(settings)
+
 top = tkinter.Tk()
 
-
 def keyPress(event):
-    if (event.keysym.lower() in ['right', 'left', 'up', 'down']):
-        PlayerSnake.direction = event.keysym.lower()
+    if event.keysym.lower() in ['right', 'left', 'up', 'down']:
+        snake.direction = event.keysym.lower()
     
     if (event.keysym == 'space'):
-        PlayerSnake.availableFood += 1
+        snake.availableFood += 1
 
 def fillSquare(canvas, x, y, color):
     canvas.create_rectangle(
-        x * GameSettings.squareSideLength,
-        y * GameSettings.squareSideLength,
-        (x+1) * GameSettings.squareSideLength,
-        (y+1) * GameSettings.squareSideLength,
+        x * settings.squareSideLength,
+        y * settings.squareSideLength,
+        (x+1) * settings.squareSideLength,
+        (y+1) * settings.squareSideLength,
         fill=color
 )
 
@@ -26,25 +28,24 @@ def render(top, canvas):
     canvas.delete('all')
     top.after(200, render, top, canvas)
 
-    x = GameSettings.squareSideLength
-    y = GameSettings.squareSideLength
-    PlayerSnake.bitesItSelf()
-    PlayerSnake.bitesEdge(GameSettings)
+    x = settings.squareSideLength
+    y = settings.squareSideLength
+    snake.bitesItSelf()
+    snake.bitesEdge()
 
-    while (x < GameSettings.windowWidth):
-        canvas.create_line(x, 0, x, GameSettings.windowHeight)
-        x += GameSettings.squareSideLength
+    while (x < settings.windowWidth):
+        canvas.create_line(x, 0, x, settings.windowHeight)
+        x += settings.squareSideLength
 
-    while (y < GameSettings.windowHeight):
-        canvas.create_line(0, y, GameSettings.windowWidth, y)
-        y += GameSettings.squareSideLength
+    while (y < settings.windowHeight):
+        canvas.create_line(0, y, settings.windowWidth, y)
+        y += settings.squareSideLength
 
-    for coordinate in PlayerSnake.bodyCoordinates:
+    for coordinate in snake.bodyCoordinates:
         fillSquare(canvas, coordinate[0], coordinate[1], '#0000ff')
-    PlayerSnake.move()
+    snake.move()
 
-PlayerSnake.reset(10)
-canvas = tkinter.Canvas(top, bg='#cccccc', height=GameSettings.windowHeight, width=GameSettings.windowWidth)
+canvas = tkinter.Canvas(top, bg='#cccccc', height=settings.windowHeight, width=settings.windowWidth)
 canvas.pack()
 render(top, canvas)
 top.bind('<Key>', keyPress)

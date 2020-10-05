@@ -1,45 +1,52 @@
+import GameSettings
+
 class PlayerSnake:
     direction='right'
     headX = 10
     headY = 10
     bodyCoordinates = []
     availableFood = 0
+    settings = 0
 
-    def reset(snakeLength: int):
-        PlayerSnake.bodyCoordinates=[]
-        PlayerSnake.headX = 10
-        PlayerSnake.headY = 10
+    def __init__(self, settings: GameSettings):
+        self.reset(10)
+        self.settings = settings
+
+    def reset(self, snakeLength: int):
+        self.bodyCoordinates=[]
+        self.headX = 10
+        self.headY = 10
         i = 0
         while i < snakeLength:
             i += 1
-            PlayerSnake.headX += 1
-            PlayerSnake.bodyCoordinates.append([PlayerSnake.headX, PlayerSnake.headY])
-        PlayerSnake.move()
+            self.headX += 1
+            self.bodyCoordinates.append([self.headX, self.headY])
+        self.move()
 
-    def move():
-        if (PlayerSnake.direction == 'right'):
-            PlayerSnake.headX += 1
-        elif (PlayerSnake.direction == 'left'):
-            PlayerSnake.headX -= 1
-        elif (PlayerSnake.direction == 'down'):
-            PlayerSnake.headY += 1
+    def move(self):
+        if (self.direction == 'right'):
+            self.headX += 1
+        elif (self.direction == 'left'):
+            self.headX -= 1
+        elif (self.direction == 'down'):
+            self.headY += 1
         else:
-            PlayerSnake.headY -= 1
-        PlayerSnake.bodyCoordinates.append([PlayerSnake.headX, PlayerSnake.headY])
-        if (PlayerSnake.availableFood >= 1):
-            PlayerSnake.availableFood -= 1
+            self.headY -= 1
+        self.bodyCoordinates.append([self.headX, self.headY])
+        if (self.availableFood >= 1):
+            self.availableFood -= 1
         else:
-            PlayerSnake.bodyCoordinates.pop(0)
-    def bitesItSelf():
-        for id, coordinate in enumerate(PlayerSnake.bodyCoordinates):
+            self.bodyCoordinates.pop(0)
+    def bitesItSelf(self):
+        for id, coordinate in enumerate(self.bodyCoordinates):
             if (
-                (id < len(PlayerSnake.bodyCoordinates) - 1) and
-                (coordinate[0] == PlayerSnake.headX) and
-                (coordinate[1] == PlayerSnake.headY)
+                (id < len(self.bodyCoordinates) - 1) and
+                (coordinate[0] == self.headX) and
+                (coordinate[1] == self.headY)
             ):
                 print('noooooo')
                 return True
         return False
-    def bitesEdge(GameSettings):
-        if not GameSettings.isInArea(PlayerSnake.headX, PlayerSnake.headY):
+    def bitesEdge(self):
+        if not self.settings.isInArea(self.headX, self.headY):
             print('nooo')
