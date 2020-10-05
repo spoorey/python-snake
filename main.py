@@ -1,18 +1,9 @@
 import tkinter
 
+from GameSettings import GameSettings
 from PlayerSnake import PlayerSnake
 
 top = tkinter.Tk()
-
-class GameSettings:
-    squareSideLength = 10
-    windowHeight = 1000
-    windowWidth = 1000
-    def isInArea(x: int, y: int):
-        xFits = (x >= 0) and (x < GameSettings.windowWidth/GameSettings.squareSideLength)
-        yFits = (y >= 0) and (y < GameSettings.windowWidth/GameSettings.squareSideLength)
-
-        return xFits and yFits
 
 
 def keyPress(event):
@@ -24,10 +15,10 @@ def keyPress(event):
 
 def fillSquare(canvas, x, y, color):
     canvas.create_rectangle(
-        x*GameSettings.squareSideLength,
-        y*GameSettings.squareSideLength,
-        (x+1)*GameSettings.squareSideLength,
-        (y+1)*GameSettings.squareSideLength,
+        x * GameSettings.squareSideLength,
+        y * GameSettings.squareSideLength,
+        (x+1) * GameSettings.squareSideLength,
+        (y+1) * GameSettings.squareSideLength,
         fill=color
 )
 
