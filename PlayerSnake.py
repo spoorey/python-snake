@@ -7,6 +7,7 @@ class PlayerSnake:
         PlayerSnake.bodyCoordinates=[]
         PlayerSnake.headX = 10
         PlayerSnake.headY = 10
+        PlayerSnake.bodyCoordinates.append([PlayerSnake.headX, PlayerSnake.headY])
         PlayerSnake.move()
 
     def move():

@@ -46,4 +46,3 @@ canvas.pack()
 render(top, canvas)
 top.bind("<Key>", keyPress)
 top.mainloop()
-
