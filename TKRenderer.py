@@ -3,6 +3,8 @@ import GameSettings
 from tkinter import Canvas
 import tkinter
 
+from GameState import GameState
+
 class TKRenderer:
     def __init__(self, settings: GameSettings, top: tkinter.Tk):
         self.settings = settings
@@ -28,9 +30,9 @@ class TKRenderer:
             canvas.create_line(0, y, settings.windowWidth, y)
             y += settings.squareSideLength
 
-    def render(self, snake: PlayerSnake):
+    def render(self, state: GameState):
         self.canvas.delete('all')
-        self.renderSnake(snake)
+        self.renderSnake(state.snake)
         self.renderGrid()
 
     def fillSquare(self, x, y, color):
