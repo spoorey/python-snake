@@ -21,10 +21,15 @@ def keyPress(event):
 
 
 def render(renderer: TKRenderer):
-    threading.Timer(0.2, render, [renderer]).start()
     renderer.render(state)
+    threading.Timer(1/settings.framesPerSecond, render, [renderer]).start()
+
+def tick():
     state.tick()
+    threading.Timer(1/settings.ticksPerSecond, tick).start()
 
 render(TKRenderer(settings, top))
+tick()
+
 top.bind('<Key>', keyPress)
 top.mainloop()
