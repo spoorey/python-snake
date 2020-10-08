@@ -11,7 +11,6 @@ class GameState:
     def tick(self):
         snake = self.snake
         if self.__snakeBitesItSelf() or self.__snakeBitesEdge():
-            print('nooo')
             snake.reset()
 
         for index, food in enumerate(self.foodCoordinates):
@@ -19,9 +18,7 @@ class GameState:
                 self.snake.availableFood += 1
                 self.foodCoordinates.pop(index)
 
-        print(len(self.foodCoordinates))
         if len(self.foodCoordinates) < self.settings.maxFoods:
-            print('foo')
             self.createFood()
 
         snake.move()
