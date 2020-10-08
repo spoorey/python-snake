@@ -13,7 +13,8 @@ class PlayerSnake:
         self.settings = settings
 
     def reset(self, snakeLength: int):
-        self.bodyCoordinates=[]
+        self.direction = 'right'
+        self.bodyCoordinates = []
         self.headX = 10
         self.headY = 10
         i = 0
@@ -44,9 +45,9 @@ class PlayerSnake:
                 (coordinate[0] == self.headX) and
                 (coordinate[1] == self.headY)
             ):
-                print('noooooo')
                 return True
+
         return False
+
     def bitesEdge(self):
-        if not self.settings.isInArea(self.headX, self.headY):
-            print('nooo')
+        return not self.settings.isInArea(self.headX, self.headY)
