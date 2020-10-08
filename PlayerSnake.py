@@ -9,20 +9,19 @@ class PlayerSnake:
     settings = 0
 
     def __init__(self, settings: GameSettings):
-        self.reset(10)
         self.settings = settings
+        self.reset()
 
-    def reset(self, snakeLength: int):
+    def reset(self):
         self.direction = 'right'
         self.bodyCoordinates = []
-        self.headX = 10
-        self.headY = 10
+        self.headX = 0
+        self.headY = 1
         i = 0
-        while i < snakeLength:
+        while i < 5:
             i += 1
             self.headX += 1
             self.bodyCoordinates.append([self.headX, self.headY])
-        self.move()
 
     def move(self):
         if (self.direction == 'right'):
