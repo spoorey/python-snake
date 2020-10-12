@@ -7,6 +7,7 @@ class PlayerSnake:
     bodyCoordinates = []
     availableFood = 0
     settings = 0
+    newDirection = ''
 
     def __init__(self, settings: GameSettings):
         self.settings = settings
@@ -24,6 +25,10 @@ class PlayerSnake:
             self.bodyCoordinates.append([self.headX, self.headY])
 
     def move(self):
+        if (self.newDirection != ''):
+            self.direction = self.newDirection
+            self.newDirection = ''
+
         if (self.direction == 'right'):
             self.headX += 1
         elif (self.direction == 'left'):

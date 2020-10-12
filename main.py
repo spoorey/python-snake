@@ -13,8 +13,14 @@ state = GameState(settings, PlayerSnake(settings))
 top = tkinter.Tk()
 
 def keyPress(event):
-    if event.keysym.lower() in ['right', 'left', 'up', 'down']:
-        state.snake.direction = event.keysym.lower()
+    key = event.keysym.lower()
+    if key in ['right', 'left', 'up', 'down']:
+        if not (
+        (key == 'right' and state.snake.direction == 'left')
+        or (key == 'left' and state.snake.direction == 'right')
+        or (key == 'down' and state.snake.direction == 'up')
+        or (key == 'up' and state.snake.direction == 'down')):
+            state.snake.newDirection = key
 
     if (event.keysym == 'space'):
         state.snake.availableFood += 1
