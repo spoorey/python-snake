@@ -10,6 +10,8 @@ class GameState:
 
     def tick(self):
         snake = self.snake
+        snake.move()
+
         if self.__snakeBitesItSelf() or self.__snakeBitesEdge():
             snake.reset()
 
@@ -20,8 +22,6 @@ class GameState:
 
         if len(self.foodCoordinates) < self.settings.maxFoods:
             self.createFood()
-
-        snake.move()
 
     def coordinateIsFree(self, x, y):
         if self.snakeTouches(x, y):

@@ -8,7 +8,7 @@ from GameState import GameState
 class TKRenderer:
     def __init__(self, settings: GameSettings, top: tkinter.Tk):
         self.settings = settings
-        self.squareSide = 30
+        self.squareSide = 700/settings.gridHeight
         self.windowHeight = settings.gridHeight * self.squareSide
         self.windowWidth = settings.gridWidth * self.squareSide
         self.gridLines = []
@@ -21,13 +21,24 @@ class TKRenderer:
         self.renderGrid()
 
     def render(self, state: GameState):
-        for food in self.foods:
-            self.canvas.delete(food)
+        self.renderSnake(state.snake)
+        coordinates = []
+        for index, food in enumerate(self.foods):
+            coordinates.append(food['c'])
+            if (food['c'] not in state.foodCoordinates):
+                self.canvas.delete(food['e'])
+                self.foods.pop(index)
 
         for food in state.foodCoordinates:
-            self.foods.append(self.fillSquare(food[0], food[1], '#ff0000'))
+            if food not in coordinates:
+                coordinates.append(food)
+                e = dict()
+                e['e'] = self.fillSquare(food[0], food[1], '#ff0000')
+                e['c'] = food
+                self.foods.append(e)
 
-        self.renderSnake(state.snake)
+        if len(self.foods) > len(state.foodCoordinates)*1.1:
+            self.foods = []
 
     def renderSnake(self, snake: PlayerSnake):
         for part in self.snakeParts:
